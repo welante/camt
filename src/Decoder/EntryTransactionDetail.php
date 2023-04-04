@@ -102,7 +102,8 @@ abstract class EntryTransactionDetail
     protected function addRelatedParty(DTO\EntryTransactionDetail $detail, SimpleXMLElement $xmlRelatedPartyType, string $relatedPartyTypeClass, ?SimpleXMLElement $xmlRelatedPartyTypeAccount = null): void
     {
         // CAMT v08 uses substructure, so we check for its existence or fallback to the element itself to keep compatibility with CAMT v04
-        $xmlPartyDetail = $xmlRelatedPartyType->Pty ?: $xmlRelatedPartyType->Agt?->FinInstnId ?: $xmlRelatedPartyType;
+        $agt = $xmlRelatedPartyType->Agt ? $xmlRelatedPartyType->Agt->FinInstnId : null;
+        $xmlPartyDetail = $xmlRelatedPartyType->Pty ?: $agt ?: $xmlRelatedPartyType;
 
         $xmlRelatedPartyName = (isset($xmlPartyDetail->Nm)) ? (string) $xmlPartyDetail->Nm : null;
         $relatedPartyType = new $relatedPartyTypeClass($xmlRelatedPartyName);

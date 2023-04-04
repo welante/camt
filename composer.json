@@ -13,11 +13,11 @@
         ]
     },
     "require": {
-        "php": "^8.0",
+        "php": "^7.0",
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
-        "jschaedl/iban-validation": "^1.7",
+        "globalcitizen/php-iban": "^2.6",
         "moneyphp/money": "^3.3 || ^4.0"
     },
     "autoload": {

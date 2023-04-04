@@ -195,12 +195,21 @@ class Record
 
     private function readStatus(SimpleXMLElement $xmlEntry): ?string
     {
+        // CAMT v08 uses substructure, so we check for its existence or fallback to the element itself to keep compatibility with CAMT v04
         $xmlStatus = $xmlEntry->Sts;
 
-        // CAMT v08 uses substructure, so we check for its existence or fallback to the element itself to keep compatibility with CAMT v04
-        return (string) $xmlStatus?->Cd
-            ?: (string) $xmlStatus?->Prtry
-                ?: (string) $xmlStatus
-                    ?: null;
+        if ($xmlStatus && $xmlStatus->Cd){
+            return (string) $xmlStatus->Cd;
+        }
+
+        if ($xmlStatus && $xmlStatus->Prtry){
+            return (string) $xmlStatus->Prtry;
+        }
+
+        if ($xmlStatus) {
+            return (string) $xmlStatus;
+        }
+
+        return null;
     }
 }

@@ -7,9 +7,11 @@ namespace Genkgo\Camt\DTO;
 class Debtor implements RelatedPartyTypeInterface
 {
     private ?Address $address = null;
+    private ?string $name;
 
-    public function __construct(private ?string $name)
+    public function __construct(?string $name)
     {
+        $this->name = $name;
     }
 
     public function setAddress(Address $address): void
